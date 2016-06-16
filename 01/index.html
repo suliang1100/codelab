@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSS3小米网登录窗口抖动</title>
+<meta charset="utf-8" />
+<style type="text/css">
+*{margin:0; padding:0;}
+body{padding:10px 0 0 0; background:#f5f5f5; font-family:"Microsoft Yahei";}
+h1{text-align:center; margin:100px 0 20px 0;}
+h1 img{width:60px;}
+.wrap{text-align:center; font-family:"Microsoft Yahei";}
+.wrap p{padding:6px 0;}
+.wrap-box{display:block; width:298px; height:20px; line-height:20px; padding:12px 10px; border:1px solid #e6e6e6; color:#333; font-size:14px; background:#fff; margin:0 auto; font-family:"Microsoft Yahei"; outline:none;}
+.wrap-btn{display:block; width:320px; height:46px; background:#ff7a4d; border:1px solid #ff7549; text-align:center; line-height:46px; font-size:16px; font-family:"Microsoft Yahei"; color:#fff; margin:10px auto; cursor:pointer; outline:none;}
+.wrap-btn:hover{background:#ff936a; border:1px solid #ff936a;}
+h2{font-size:26px; text-align:center; color:#000; margin-bottom:10px;}
+h3{font-size:14px; text-align:center; color:#8d8d8d; margin:0 0 30px 0; font-weight:normal;}
+</style>
+</head>
+<body>
+<h1><img src="logo.png" /></h1>
+<h2>一个帐号，玩转所有小米服务！</h2>
+<h3>小米手机，小米网，MIUI米柚，多看阅读，米聊</h3>
+<div class="wrap">
+	<p><input type="text" placeholder="邮箱/手机号码/小米账号" class="wrap-box"/></p>
+	<p><input type="password" placeholder="密码" class="wrap-box" /></p>
+	<p><input type="button" value="立即登录" class="wrap-btn" /></p>
+</div>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var $btn = $(".wrap-btn");
+		var $box = $(".wrap-box");
+		var index=0;
+		$btn.on("click",function(){
+			$box.each(function(){
+				if(!$(this).val()){
+					shake();
+					return false;
+				}
+			})
+		})
+		function shake(){
+			var arr = [];
+			for(var i=20;i>0;i-=5){
+				arr.push(i,-i);
+			}
+			arr.push(0);
+			var timer = setInterval(function(){
+				$box.css({
+					"-webkit-transform":"translate("+arr[index]+"px,0)",
+					"transform":"translate("+arr[index]+"px,0)"
+				})
+				if(index>arr.length){
+					clearInterval(timer);
+					index=0;
+					$box.eq(1).val("");
+				}else{
+					index++;
+				}
+			},40)
+		}
+	})
+</script>
+</body>
+</html>
